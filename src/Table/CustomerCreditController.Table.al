@@ -30,11 +30,9 @@ table 50101 "Customer Credit Controller"
         {
             DataClassification = ToBeClassified;
         }
-        field(6; "Credit Status"; Option)
+        field(6; "Credit Status"; Enum "Credit Status")
         {
             DataClassification = ToBeClassified;
-            OptionMembers = " ","Approved","On Hold","Review Required","Rejected";
-            OptionCaptionML = ENU = " ,Approved,On Hold,Review Required,Rejected";
         }
         field(7; Notes; Blob)
         {
