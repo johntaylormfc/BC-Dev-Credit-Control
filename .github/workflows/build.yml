@@ -1,0 +1,55 @@
+name: Build AL Extension
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+env:
+  AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+  AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+  AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+  AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    
+    - name: Setup AL-Go
+      uses: microsoft/AL-Go@main
+      with:
+        actor: ${{ secrets.AZURE_CLIENT_ID }}
+    
+    - name: Compile Extension
+      shell: pwsh
+      run: |
+        Write-Host "Building AL Extension..."
+        # This would use AL-Go in production
+        # For now, just verify the files exist
+        Get-ChildItem -Path . -Filter *.al -Recurse | Measure-Object | Select-Object -ExpandProperty Count
+    
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: al-extension
+        path: |
+          *.app
+          app.json
+
+  deploy-local:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    
+    steps:
+    - name: Trigger Local Rebuild
+      run: |
+        # Call local webhook to trigger rebuild
+        curl -X POST http://192.168.1.146:9001/webhook/bc-deploy \
+          -H "Content-Type: application/json" \
+          -d '{"repository": "BC-Dev-Credit-Control", "ref": "${{ github.ref }}", "commit": "${{ github.sha }}"}'

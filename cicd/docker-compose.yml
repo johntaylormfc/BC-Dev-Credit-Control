@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  bc-deploy-webhook:
+    image: python:3.11-slim
+    container_name: bc-deploy-webhook
+    working_dir: /app
+    volumes:
+      - ./webhook-server.py:/app/server.py
+      - ../:/repo/BC-Dev-Credit-Control
+    ports:
+      - "9001:9001"
+    environment:
+      - REPO_DIR=/repo/BC-Dev-Credit-Control
+      - CONTAINER_NAME=bc-sandbox
+    command: python3 -m http.server 9001
+    restart: unless-stopped
