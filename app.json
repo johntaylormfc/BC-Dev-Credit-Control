@@ -1,0 +1,27 @@
+{
+  "id": "12345678-1234-1234-1234-123456789012",
+  "name": "BC Dev Credit Control",
+  "publisher": "John Taylor",
+  "version": "1.0.0.0",
+  "brief": "Credit Control Management for Business Central",
+  "description": "Credit Control management extension with enhanced customer ledger entry tracking, action management, and audit trail.",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "https://github.com/johntaylormfc/BC-Dev-Credit-Control",
+  "logo": "",
+  "dependencies": [],
+  "screenshots": [],
+  "platform": "1.0.0.0",
+  "application": "25.0.0.0",
+  "idRanges": [
+    {
+      "from": 50100,
+      "to": 50149
+    }
+  ],
+  "runtime": "13.0.0.0",
+  "features": [
+    "NoImplicitWith"
+  ]
+}
