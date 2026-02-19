@@ -49,6 +49,88 @@ BC Dev Credit Control is a Business Central extension that helps credit controll
 
 ---
 
+## Credit Limit Management
+
+### Setting Credit Limits
+
+1. Go to **Customer Credit Controllers**
+2. Select the customer
+3. Enter a **Credit Limit** amount
+4. This overrides the customer's default credit limit
+
+### Viewing Customer Credit Limits
+
+1. Go to **Customer Credit Limits**
+2. View all customers with:
+   - Credit Limit
+   - Current Balance
+   - Outstanding Orders
+   - **Available Credit** (calculated)
+   - **Utilization %** (percentage of limit used)
+
+### Credit Limit History
+
+All credit limit changes are tracked:
+
+1. Go to the customer's credit history
+2. View:
+   - Previous limit
+   - New limit
+   - Change date
+   - Who made the change
+   - Reason for change
+
+---
+
+## Credit Hold
+
+### Putting a Customer on Credit Hold
+
+When a customer exceeds their credit limit or has overdue balances, you can put them on credit hold:
+
+1. Go to **Customer Credit Limits**
+2. Select the customer
+3. Click **Put On Credit Hold**
+4. The customer will be blocked from new orders until released
+
+### Removing Credit Hold
+
+1. Go to **Customer Credit Limits**
+2. Select the customer
+3. Click **Remove Credit Hold**
+
+---
+
+## Companies House Lookup (UK)
+
+### Verifying New Customers
+
+For UK businesses, you can verify companies using Companies House data:
+
+1. Open a Customer Card
+2. Look for the **Companies House** section (if enabled)
+3. Enter the Company Registration Number
+4. The system will:
+   - Verify the company exists and is active
+   - Get incorporation date
+   - Get company type (LTD, PLC, LLP, etc.)
+   - Return a credit score (0-100)
+   - **Suggest a credit limit** based on company age and score
+
+### Credit Score
+
+The system calculates a score (0-100) based on:
+- Company age
+- Filing history
+- Industry risk factors
+
+Recommended actions based on score:
+- 0-30: High risk, require prepayment
+- 31-60: Medium risk, limited credit
+- 61-100: Low risk, standard credit terms
+
+---
+
 ## Daily Use
 
 ### Viewing Customer Ledger Entries with Credit Control
@@ -165,8 +247,10 @@ The log tracks:
 - Promises to pay
 - Disputes raised/resolved
 - Credit status changes
+- Credit limit changes
 - Customer assignments
 - Escalations
+- Credit holds applied/removed
 
 ---
 
@@ -200,12 +284,19 @@ The log tracks:
 3. Review customers with "Review Required" status
 4. Follow up on broken promises
 
+### Credit Limit Management
+- Set appropriate credit limits based on company history
+- Review credit limits quarterly
+- Use Companies House lookup for new customers
+- Put high-risk customers on credit hold promptly
+
 ### Tips
 - Set realistic Next Action Dates
 - Log all customer contacts as notes
 - Use the Action Log for audit trail
 - Update Credit Status when circumstances change
 - Review overdue entries at least weekly
+- Monitor credit utilization % - act before 80%
 
 ---
 
@@ -222,6 +313,14 @@ The log tracks:
 
 ### Promise Not Tracking
 - Make sure Promise To Pay Date is set on the ledger entry
+
+### Credit Hold Not Working
+- Check that Credit Limit is set on the customer
+- Verify the customer is in the Customer Credit Controller table
+
+### Companies House Lookup Not Working
+- Requires API key configuration (contact your administrator)
+- Only works for UK registered companies
 
 ---
 
